@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR. — Heavyweight Streetwear | Drop 004</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif;background:#0A0A0A;color:#F2EFE9}
+.display{font-family:'Space Grotesk',sans-serif}
+.marquee{display:flex;white-space:nowrap;animation:scroll 22s linear infinite}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rack{scrollbar-width:none}.rack::-webkit-scrollbar{display:none}
+.chip.active{background:#F2EFE9;color:#000}
+.size-btn.active{background:#F2EFE9;color:#000;border-color:#F2EFE9}
+.color-btn.active{outline:2px solid #F2EFE9;outline-offset:2px}
+.card img{transition:.5s}.card:hover img{transform:scale(1.05)}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="overflow-hidden border-b border-white/10 bg-black py-2 text-[11px] tracking-[0.2em] uppercase"><div class="marquee"><span class="px-4">New Drop 004 — Live Now • Free Shipping Over $150 • No Restocks • Heavyweight Essentials •&nbsp;</span><span class="px-4">New Drop 004 — Live Now • Free Shipping Over $150 • No Restocks • Heavyweight Essentials •&nbsp;</span></div></div>
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 backdrop-blur bg-[#0A0A0A]/85 border-b border-white/10">
+<div class="max-w-7xl mx-auto px-4 h-[64px] flex items-center justify-between">
+<div class="text-2xl font-bold">NOIR<span>.</span></div>
+<nav class="hidden md:flex gap-8 text-[13px] uppercase tracking-widest text-white/70"><a href="#rack">The Rack</a><a href="#shop">Shop All</a><a href="#detail">Details</a></nav>
+<button onclick="toggleCart(true)" class="bg-white text-black px-4 py-2 rounded-full text-sm font-bold">Cart (<span id="cartCount">0</span>)</button>
+</div></header>
+
+<!-- HERO / RACK -->
+<section id="rack" class="max-w-7xl mx-auto px-4 pt-10">
+<p class="text-[11px] tracking-[0.3em] uppercase text-white/50">Drop 004 — The Rack</p>
+<div class="flex flex-wrap items-end justify-between gap-4 mt-3"><h1 class="display text-[48px] md:text-[84px] leading-[0.9] font-bold uppercase">Hanging<br><span class="text-white/30">In Order.</span></h1><p class="max-w-[320px] text-white/60 text-sm">6 قطع تقيلة، متعلقة بالترتيب. اسحب الـ Rack، دوس على أي قطعة عشان تشوف تفاصيلها، اختار اللون والمقاس وضيف للسلة.</p></div>
+<div class="flex gap-2 mt-6 flex-wrap" id="filters"></div>
+<div class="flex items-center justify-between mt-4"><p class="text-xs text-white/50">اسحب عشان تشوف ← <span id="counter">01 / 06</span></p><div class="flex gap-2"><button onclick="scrollRack(-1)" class="w-10 h-10 rounded-full border border-white/20">←</button><button onclick="scrollRack(1)" class="w-10 h-10 rounded-full bg-white text-black">→</button></div></div>
+<div class="h-[3px] bg-white/20 rounded-full mt-8"></div>
+<div id="rackEl" class="rack flex gap-5 overflow-x-auto snap-x snap-mandatory py-6 px-1"></div>
+<div class="h-[3px] bg-white/10 rounded-full"><div id="progress" class="h-full bg-white rounded-full" style="width:30%"></div></div>
+</section>
+
+<!-- DETAIL -->
+<section id="detail" class="max-w-7xl mx-auto px-4 py-14">
+<div class="grid md:grid-cols-2 gap-8 bg-[#121212] border border-white/10 rounded-[24px] p-4 md:p-8">
+<div><div class="rounded-[20px] overflow-hidden bg-[#1a1a1a]"><img id="detailImg" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80" class="w-full aspect-[3/4] object-cover"></div>
+<div class="flex gap-2 mt-3"><button onclick="setView('front')" id="btnFront" class="px-4 py-2 rounded-full bg-white text-black text-sm">Front</button><button onclick="setView('back')" id="btnBack" class="px-4 py-2 rounded-full border border-white/20 text-sm">Back</button><span id="detailTag" class="ml-auto px-3 py-2 rounded-full bg-white/10 text-xs uppercase tracking-widest">Best Seller</span></div></div>
+<div><p id="detailCat" class="text-xs tracking-[0.3em] uppercase text-white/50">Tees</p><h2 id="detailName" class="display text-4xl md:text-5xl font-bold uppercase mt-2">Heavyweight Oversized Tee</h2><p class="mt-2 text-white/60">★★★★★ 4.9 (128 reviews)</p><p class="mt-3 text-3xl font-bold">$<span id="detailPrice">85</span> <span id="detailCompare" class="text-lg text-white/40 line-through">$110</span></p><p id="detailDesc" class="mt-4 text-white/70 leading-relaxed">450 GSM heavy cotton, boxy oversized fit. Pre-shrunk, garment-dyed.</p>
+<p class="mt-6 text-xs tracking-widest uppercase">Colour — <span id="colorName">Black</span></p><div class="flex gap-3 mt-2" id="colors"></div>
+<p class="mt-6 text-xs tracking-widest uppercase">Size — <span id="sizeName">Select a size</span></p><div class="flex gap-2 mt-2" id="sizes"></div><p id="sizeWarn" class="hidden text-red-400 text-sm mt-2">اختار المقاس الأول</p>
+<div class="flex items-center gap-3 mt-6"><button onclick="changeQty(-1)" class="w-10 h-10 border rounded-full">-</button><span id="qty">1</span><button onclick="changeQty(1)" class="w-10 h-10 border rounded-full">+</button><button onclick="addToCart()" class="flex-1 bg-white text-black py-4 rounded-full font-bold">Add to Cart — $<span id="addTotal">85</span></button></div>
+<div class="mt-6 space-y-2 text-sm text-white/70"><details class="border border-white/10 rounded-xl p-4"><summary class="cursor-pointer">Fabric & Care</summary><p class="mt-2">100% combed cotton. Cold wash, hang dry.</p></details><details class="border border-white/10 rounded-xl p-4"><summary class="cursor-pointer">Fit & Sizing</summary><p class="mt-2">Oversized boxy fit. خد مقاسك العادي عشان يطلع أوفرسايز.</p></details><details class="border border-white/10 rounded-xl p-4"><summary class="cursor-pointer">Shipping & Returns</summary><p class="mt-2">شحن مجاني فوق $150. استرجاع خلال 30 يوم.</p></details></div>
+</div></div></section>
+
+<!-- SHOP ALL -->
+<section id="shop" class="max-w-7xl mx-auto px-4 pb-16"><h2 class="display text-4xl font-bold uppercase">Shop All — 004</h2><div id="grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6"></div></section>
+
+<!-- NEWSLETTER -->
+<section class="max-w-7xl mx-auto px-4 pb-16"><div class="bg-[#F2EFE9] text-black rounded-[24px] p-8 text-center"><h3 class="display text-3xl md:text-5xl font-bold uppercase">Join The List — Drop 005 Early Access</h3><div class="flex max-w-md mx-auto mt-6 gap-2"><input id="email" placeholder="your@email.com" class="flex-1 px-4 py-3 rounded-full border"><button onclick="subscribe()" class="bg-black text-white px-6 py-3 rounded-full">Join</button></div><p id="subMsg" class="mt-3 text-sm"></p></div></section>
+
+<footer class="border-t border-white/10 py-10 text-center text-white/50 text-sm"><p class="display text-5xl text-white font-bold">NOIR.</p><p class="mt-3">© 2026 NOIR. Wear less, mean more.</p></footer>
+
+<!-- CART -->
+<div id="cartDrawer" class="fixed inset-0 z-50 hidden"><div class="absolute inset-0 bg-black/70" onclick="toggleCart(false)"></div><div class="absolute right-0 top-0 h-full w-full max-w-[420px] bg-[#121212] p-6 overflow-y-auto"><div class="flex justify-between items-center"><h3 class="text-xl font-bold">Your Cart</h3><button onclick="toggleCart(false)" class="w-9 h-9 border rounded-full">×</button></div><div id="cartItems" class="mt-6 space-y-4"></div><div class="mt-6 border-t border-white/10 pt-4"><p class="text-sm text-white/60" id="shipMsg"></p><div class="h-2 bg-white/10 rounded-full mt-2"><div id="shipBar" class="h-full bg-white rounded-full" style="width:0%"></div></div><p class="flex justify-between mt-4 font-bold"><span>Subtotal</span><span>$<span id="subtotal">0</span></span></p><button class="w-full bg-white text-black py-4 rounded-full font-bold mt-4">Checkout</button></div></div></div>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black px-5 py-3 rounded-full text-sm font-semibold hidden z-[60] shadow-xl"></div>
+
+<script>
+const products=[
+{id:1,name:"Heavyweight Oversized Tee",cat:"Tees",price:85,compare:110,tag:"Best Seller",front:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=900&q=80",desc:"450 GSM heavy cotton, boxy oversized fit. Pre-shrunk, garment-dyed.",colors:["Black","White","Bone"]},
+{id:2,name:"Boxy Hoodie — Bone",cat:"Hoodies",price:180,compare:220,tag:"New",front:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?auto=format&fit=crop&w=900&q=80",desc:"480 GSM brushed fleece, boxy fit, kangaroo pocket.",colors:["Bone","Black","Charcoal"]},
+{id:3,name:"Technical Bomber Jacket",cat:"Jackets",price:320,compare:380,tag:"Limited",front:"https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1543076447-215ad9ba6923?auto=format&fit=crop&w=900&q=80",desc:"Water-resistant nylon, matte zippers, ribbed cuffs.",colors:["Black","Charcoal"]},
+{id:4,name:"Essential Rib Tank",cat:"Tanks",price:55,compare:70,tag:"Essential",front:"https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=80",desc:"Heavyweight ribbed cotton tank. Clean cut, built for layering.",colors:["White","Black"]},
+{id:5,name:"Present Graphic Tee",cat:"Tees",price:95,compare:120,tag:"New",front:"https://images.unsplash.com/photo-1578932750294-f5075e85f44a?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=80",desc:"Oversized graphic tee with minimal front mark and large back print.",colors:["White","Black"]},
+{id:6,name:"Zip Hoodie — Charcoal",cat:"Hoodies",price:195,compare:240,tag:"Low Stock",front:"https://images.unsplash.com/photo-1509942774463-acf339cf87d5?auto=format&fit=crop&w=900&q=80",back:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",desc:"Full-zip heavy fleece hoodie in charcoal. Minimal, warm, everyday.",colors:["Charcoal","Black"]},
+];
+let filter="All",selected=products[0],view="front",size="",qty=1,color="Black",cart=[];
+const cats=["All","Tees","Hoodies","Jackets","Tanks"];
+function renderFilters(){document.getElementById('filters').innerHTML=cats.map(c=>`<button onclick="setFilter('${c}')" class="chip px-4 py-2 rounded-full border border-white/20 text-sm ${filter===c?'active':''}">${c}</button>`).join('')}
+function setFilter(c){filter=c;renderFilters();renderRack();renderGrid()}
+function renderRack(){const list=products.filter(p=>filter==="All"||p.cat===filter);document.getElementById('rackEl').innerHTML=list.map(p=>`<div onclick="selectProduct(${p.id})" class="card shrink-0 w-[260px] md:w-[300px] snap-center cursor-pointer ${selected.id===p.id?'ring-2 ring-white rounded-[20px]':''}"><div class="rounded-[20px] overflow-hidden bg-[#1a1a1a] border border-white/10"><img src="${p.front}" class="w-full aspect-[3/4] object-cover"></div><div class="flex justify-between mt-3"><div><p class="font-semibold">${p.name}</p><p class="text-xs text-white/50">${p.cat} • ${p.tag}</p></div><p class="font-bold">$${p.price}</p></div><p class="text-xs mt-1 text-white/60">Click to view →</p></div>`).join('');document.getElementById('counter').textContent=`01 / 0${list.length}`}
+function renderGrid(){document.getElementById('grid').innerHTML=products.map(p=>`<div class="card bg-[#121212] border border-white/10 rounded-[20px] overflow-hidden"><img src="${p.front}" class="w-full aspect-[3/4] object-cover"><div class="p-4"><p class="font-semibold">${p.name}</p><p class="text-sm text-white/50">$${p.price} • ${p.tag}</p><button onclick="selectProduct(${p.id});document.getElementById('detail').scrollIntoView({behavior:'smooth'})" class="mt-3 w-full bg-white text-black py-2 rounded-full text-sm font-semibold">View Details</button></div></div>`).join('')}
+function selectProduct(id){selected=products.find(p=>p.id===id);view="front";size="";qty=1;color=selected.colors[0];updateDetail();renderRack();document.getElementById('detail').scrollIntoView({behavior:'smooth'})}
+function setView(v){view=v;document.getElementById('detailImg').src=view==="front"?selected.front:selected.back;document.getElementById('btnFront').className=view==="front"?"px-4 py-2 rounded-full bg-white text-black text-sm":"px-4 py-2 rounded-full border border-white/20 text-sm";document.getElementById('btnBack').className=view==="back"?"px-4 py-2 rounded-full bg-white text-black text-sm":"px-4 py-2 rounded-full border border-white/20 text-sm"}
+function updateDetail(){document.getElementById('detailName').textContent=selected.name;document.getElementById('detailCat').textContent=selected.cat;document.getElementById('detailPrice').textContent=selected.price;document.getElementById('detailCompare').textContent="$"+selected.compare;document.getElementById('detailDesc').textContent=selected.desc;document.getElementById('detailTag').textContent=selected.tag;document.getElementById('detailImg').src=selected.front;document.getElementById('colorName').textContent=color;document.getElementById('sizeName').textContent=size||"Select a size";document.getElementById('addTotal').textContent=selected.price*qty;document.getElementById('qty').textContent=qty;document.getElementById('colors').innerHTML=selected.colors.map(c=>`<button onclick="setColor('${c}')" class="color-btn w-9 h-9 rounded-full border ${c==='Black'?'bg-black':c==='White'?'bg-white':c==='Bone'?'bg-[#D8D2C4]':'bg-[#3a3a3a]'} ${color===c?'active':''}"></button>`).join('');document.getElementById('sizes').innerHTML=["S","M","L","XL"].map(s=>`<button onclick="setSize('${s}')" class="size-btn w-12 h-11 rounded-full border border-white/20 ${size===s?'active':''}">${s}</button>`).join('')}
+function setColor(c){color=c;showToast("Colour: "+c);updateDetail()}
+function setSize(s){size=s;document.getElementById('sizeWarn').classList.add('hidden');updateDetail()}
+function changeQty(d){qty=Math.max(1,qty+d);updateDetail()}
+function addToCart(){if(!size){document.getElementById('sizeWarn').classList.remove('hidden');showToast("اختار المقاس الأول");return}cart.push({...selected,size,color,qty});updateCart();showToast("اتضاف للسلة — "+selected.name);toggleCart(true)}
+function updateCart(){document.getElementById('cartCount').textContent=cart.reduce((a,b)=>a+b.qty,0);let total=cart.reduce((a,b)=>a+b.price*b.qty,0);document.getElementById('subtotal').textContent=total;document.getElementById('cartItems').innerHTML=cart.length?cart.map((it,i)=>`<div class="flex gap-3 bg-white/5 p-3 rounded-2xl"><img src="${it.front}" class="w-[64px] h-[80px] object-cover rounded-xl"><div class="flex-1"><p class="font-semibold text-sm">${it.name}</p><p class="text-xs text-white/50">${it.color} • ${it.size} • Qty ${it.qty}</p><p class="font-bold mt-1">$${it.price*it.qty}</p></div><button onclick="removeItem(${i})">×</button></div>`).join(''):`<p class="text-white/60">السلة فاضية. ضيف حاجة من الـ Rack.</p>`;let pct=Math.min(100,total/150*100);document.getElementById('shipBar').style.width=pct+"%";document.getElementById('shipMsg').textContent=total>=150?"وصلت للشحن المجاني 🎉":`فاضلك $${150-total} للشحن المجاني`}
+function removeItem(i){cart.splice(i,1);updateCart()}
+function toggleCart(open){document.getElementById('cartDrawer').classList.toggle('hidden',!open)}
+function scrollRack(dir){document.getElementById('rackEl').scrollBy({left:dir*320,behavior:'smooth'})}
+function showToast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.remove('hidden');setTimeout(()=>t.classList.add('hidden'),2200)}
+function subscribe(){let e=document.getElementById('email').value;document.getElementById('subMsg').textContent=e?"تمام! انت كده على الليست بتاعة Drop 005.":"اكتب ايميلك الأول."}
+document.getElementById('rackEl').addEventListener('scroll',e=>{let el=e.target;let p=el.scrollLeft/(el.scrollWidth-el.clientWidth||1)*100;document.getElementById('progress').style.width=(20+p*0.7)+"%"});
+renderFilters();renderRack();renderGrid();updateDetail();updateCart();
+</script>
+</body>
+  </html>
